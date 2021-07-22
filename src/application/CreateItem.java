@@ -23,7 +23,7 @@ import java.nio.file.Files;
 import java.sql.*;
 import java.util.UUID;
 
-import static application.ConnectDB.getConnection;
+import static application.DBInterface.getConnection;
 import static application.messages.MessageDisplay.showAlert;
 
 public class CreateItem extends NextPageController {
