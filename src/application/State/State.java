@@ -1,5 +1,6 @@
 package application.State;
 
+import application.exceptions.UserNotFoundException;
 import application.models.Admin;
 import application.models.User;
 

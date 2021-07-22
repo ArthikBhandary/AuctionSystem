@@ -1,4 +1,4 @@
-package application;
+package application.controllers;
 
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
@@ -117,6 +117,23 @@ public class CreateItem extends NextPageController {
         return button;
     }
 
+    private Button getBackButton(){
+        Button button = new Button("Show open dialog");
+
+        // create an Event Handler
+        EventHandler<ActionEvent> event = e -> {
+            // get the file selected
+            try {
+                nextPage(e, "Admin_login.fxml");
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
+        };
+
+        button.setOnAction(event);
+        return button;
+    }
+
     private Button getSubmitButton(){
         Button button = new Button("Submit");
 
@@ -185,7 +202,7 @@ public class CreateItem extends NextPageController {
         t.getChildren().addAll(nameText, nameField);
         TilePane t2 = new TilePane();
         t.getChildren().addAll(descriptionText, descriptionField);
-        VBox vbox = new VBox(30, imageView, fileLabel, fileUploadButton, t, t2, getSubmitButton());
+        VBox vbox = new VBox(30, imageView, fileLabel, fileUploadButton, t, t2, getSubmitButton(), getBackButton());
 
         // set Alignment
         vbox.setAlignment(Pos.CENTER);

@@ -1,4 +1,4 @@
-package application;
+package application.controllers;
 import java.sql.*;
 import java.io.IOException;
 import java.net.URL;

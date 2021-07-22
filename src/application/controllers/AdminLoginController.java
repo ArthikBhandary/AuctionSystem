@@ -1,8 +1,9 @@
-package application;
+package application.controllers;
 
 import java.io.IOException;
 import java.sql.SQLException;
 
+import application.Authentication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -12,7 +13,7 @@ import javafx.scene.control.PasswordField;
 
 import javafx.stage.Stage;
 
-public class AdminLoginController extends NextPageController{
+public class AdminLoginController extends NextPageController {
 	
 	@FXML
 	private Label msg;

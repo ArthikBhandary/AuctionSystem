@@ -1,13 +1,13 @@
 package application;
 import application.State.State;
-import application.State.UserNotFoundException;
+import application.exceptions.UserNotFoundException;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-import static application.ExceptionDisplay.printSQLException;
+import static application.exceptions.ExceptionDisplay.printSQLException;
 import static application.models.User.userBuilder;
 
 public class Authentication {

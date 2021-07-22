@@ -1,4 +1,4 @@
-package application.State;
+package application.exceptions;
 
 public class UserNotFoundException extends Exception {
     @Override

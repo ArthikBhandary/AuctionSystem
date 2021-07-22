@@ -37,7 +37,7 @@ public class Main extends Application {
 //		primaryStage.show();
 //		(new CreateItem(primaryStage)).openPage();
 		runTask();
-		Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+		Parent root = FXMLLoader.load(getClass().getResource("fxml/Login.fxml"));
 		Scene scene  = new Scene(root);
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("Auction System");
