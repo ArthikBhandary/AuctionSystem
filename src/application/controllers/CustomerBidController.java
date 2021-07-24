@@ -10,7 +10,6 @@ import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -32,7 +31,7 @@ public class CustomerBidController extends DynamicItemScrollController{
     @FXML
     public void back(ActionEvent event){
         try {
-            nextPage(event, "fxml/Home.fxml");
+            nextPage(event, "../view/Home.fxml");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -52,19 +51,24 @@ public class CustomerBidController extends DynamicItemScrollController{
         System.out.println("resources/" + item.getImagePath());
         File file = new File(PROJECT_DIR + RESOURCE_DIR + item.getImagePath());
         Image image = new Image(file.getPath());
-
         ImageView imageView= new ImageView(image);
-        imageView.setFitWidth(400);
+        imageView.maxWidth(390);
+        imageView.setFitWidth(390);
         imageView.setPreserveRatio(true);
 
         Text nameText = new Text(item.getName());
+        nameText.maxWidth(390);
+        nameText.setWrappingWidth(390);
         nameText.setStyle("-fx-font: 30 arial;");
         HBox nameBox = new HBox(nameText);
+        nameBox.maxWidth(390);
         nameBox.setAlignment(Pos.CENTER);
 
-        TextArea descriptionText = new TextArea("Description : " + item.getDescription());
+        Text descriptionText = new Text("Description : " + item.getDescription());
         descriptionText.setStyle("-fx-font: 20 arial;");
+        descriptionText.setWrappingWidth(390);
         HBox descriptionBox = new HBox(descriptionText);
+        descriptionBox.setMaxWidth(390);
         descriptionBox.setAlignment(Pos.CENTER);
 
         Text prevBidText =  new Text("Current Bid : " + item.getBid());
@@ -83,6 +87,8 @@ public class CustomerBidController extends DynamicItemScrollController{
                 newBidText.setStyle("-fx-font: 20 arial;");
                 TextField newBidField = new TextField();
                 HBox newBidBox = new HBox(newBidText, newBidField);
+                newBidBox.setAlignment(Pos.CENTER);
+                newBidBox.setMaxWidth(390);
                 Button bidButton = new Button("Bid");
 
                 node = new VBox(nameBox, imageView, descriptionBox, prevBidBox, newBidBox, bidButton);
@@ -102,9 +108,11 @@ public class CustomerBidController extends DynamicItemScrollController{
                 bidButton.setOnAction(event);
 
             } else {
-                Text userInfoText = new Text("Your Bid ");
+                Text userInfoText = new Text("  ");
                 userInfoText.setStyle("-fx-font: 20 arial;");
                 HBox userInfoBox = new HBox(userInfoText);
+                userInfoBox.setMaxWidth(390);
+                userInfoBox.setAlignment(Pos.CENTER);
                 node = new VBox(nameBox, imageView, descriptionBox, prevBidBox, userInfoBox);
             }
         } catch (UserNotFoundException e) {

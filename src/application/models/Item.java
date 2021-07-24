@@ -94,7 +94,7 @@ public class Item {
     public Boolean setBid(int amount) throws UserNotFoundException {
         if (amount > bid) {
             try {
-                State.getUser().getId();
+                user_id = State.getUser().getId();
                 PreparedStatement stmt = getConnection().prepareStatement(BID_UPDATE_QUERY);
                 stmt.setInt(1, amount);
                 stmt.setInt(2, user_id);

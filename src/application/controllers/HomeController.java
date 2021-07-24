@@ -41,7 +41,7 @@ public class HomeController extends NextPageController {
 	}
 	
 	@FXML
-	public void sell(ActionEvent event)
+	public void buy(ActionEvent event)
 	{
 		//msg.setText("yolo");
 		System.out.println("Sold");

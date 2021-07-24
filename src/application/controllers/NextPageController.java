@@ -16,6 +16,7 @@ public class NextPageController {
      public void nextPage(ActionEvent event, String FXMLName) throws IOException {
 
         Parent pane;
+         System.out.println(FXMLName);
         System.out.println(FXMLName);
         pane = (AnchorPane) FXMLLoader.load(Objects.requireNonNull(getClass().getResource(FXMLName)));
         Scene scene = new Scene(pane);
