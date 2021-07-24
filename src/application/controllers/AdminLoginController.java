@@ -4,14 +4,14 @@ import java.io.IOException;
 import java.sql.SQLException;
 
 import application.Authentication;
+import application.State.State;
+import application.exceptions.UserNotFoundException;
+import application.models.Admin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
-
-import javafx.stage.Stage;
 
 public class AdminLoginController extends NextPageController {
 	
@@ -30,11 +30,12 @@ public class AdminLoginController extends NextPageController {
 		try {
 			if(Authentication.validate(password))
 				{
-				System.out.println("Correct");
-				msg.setText("valid");
+					System.out.println("Correct");
+					msg.setText("valid");
+					State.setAdmin(new Admin(State.getUser()));
 				//FROM HERE WE NAVIGATE TO INITIAL BID PAGE
-					Stage stage = (Stage)((Node)event.getSource()).getScene().getWindow();
-					(new CreateItem(stage)).openPage();
+					nextPage(event, "../view/AdminHome.fxml");
+
 				}
 
 				else
@@ -42,7 +43,7 @@ public class AdminLoginController extends NextPageController {
 					System.out.println("Incorrect");
 					msg.setText("Invalid!");
 				}
-		} catch (SQLException throwables) {
+		} catch (SQLException | UserNotFoundException throwables) {
 			throwables.printStackTrace();
 		}
 	}

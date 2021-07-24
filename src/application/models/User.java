@@ -1,9 +1,9 @@
 package application.models;
 
 public class User {
-    final int id;
+    final private int id;
     final public String username;
-    final protected String password;
+    final private String password;
     final protected Boolean is_admin;
 
 
@@ -26,4 +26,7 @@ public class User {
         return new User(id, username, password, is_admin);
     }
 
+    public String getPassword() {
+        return password;
+    }
 }

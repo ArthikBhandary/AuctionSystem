@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="application.controllers.CustomerBuyController">
+   <children>
+      <Text layoutX="9.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Your Bid" textAlignment="CENTER" wrappingWidth="381.60003662109375">
+         <font>
+            <Font name="Playbill" size="41.0" />
+         </font>
+      </Text>
+      <ScrollPane fx:id="scrollPane" layoutX="9.0" layoutY="76.0" prefHeight="346.0" prefWidth="382.0">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="341.0" prefWidth="377.0" />
+        </content>
+      </ScrollPane>
+      <Button layoutX="61.0" layoutY="440.0" mnemonicParsing="false" onAction="#home" prefHeight="35.0" prefWidth="72.0" text="Home" />
+      <Button layoutX="272.0" layoutY="440.0" mnemonicParsing="false" onAction="#back" prefHeight="35.0" prefWidth="66.0" text="Back" />
+   </children>
+</AnchorPane>

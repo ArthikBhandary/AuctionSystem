@@ -58,11 +58,13 @@ public class LoginController extends NextPageController {
 
             infoBox("Login Successful!", null, "Success");
             try {
-                nextPage(event,"Home.fxml" );
+                nextPage(event,"../view/Home.fxml" );
             } catch (IOException e){
                 System.out.println(e);
                 showAlert(Alert.AlertType.ERROR, window, "Something went wrong",
                         "Couldn't load next Page!");
+            } catch(Exception e){
+                System.out.println(e);
             }
         }
     }

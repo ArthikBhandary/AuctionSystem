@@ -16,7 +16,7 @@ public class HomeController extends NextPageController {
 		System.out.println("To enter starting bidding prices");
 		try
 		{
-			nextPage(event, "Admin_login.fxml");
+			nextPage(event, "../view/Admin_login.fxml");
 		}catch(IOException e)
 		{
 			System.out.println(e);
@@ -32,7 +32,7 @@ public class HomeController extends NextPageController {
 		System.out.println("To enter starting bidding prices");
 		try
 		{
-			nextPage(event, "Bidding.fxml");
+			nextPage(event, "../view/CustomerBid.fxml");
 		}catch(IOException e)
 		{
 			System.out.println(e);
@@ -49,8 +49,8 @@ public class HomeController extends NextPageController {
 		System.out.println("To enter starting bidding prices");
 		try
 		{
-			nextPage(event, "Sale.fxml");
-		}catch(IOException e)
+			nextPage(event, "../view/CustomerBuy.fxml");
+		} catch(IOException e)
 		{
 			System.out.println(e);
 		}

@@ -4,6 +4,7 @@ import application.exceptions.UserNotFoundException;
 import application.models.Admin;
 import application.models.User;
 
+
 public class State {
     static private User user;
     static private Admin admin;
@@ -17,8 +18,19 @@ public class State {
         return user;
     }
 
+    public static Admin getAdmin() throws UserNotFoundException {
+        if(!authenticated|| !is_admin || user == null){
+            System.out.println(authenticated);
+            System.out.println(is_admin);
+            System.out.println(user == null);
+            System.out.println(admin == null);
+            throw new UserNotFoundException();
+        }
+        return admin;
+    }
+
     public static void setUser(User user) {
-        authenticated = true;
+        State.authenticated = true;
         State.user = user;
     }
 
@@ -32,6 +44,7 @@ public class State {
     }
 
     public static void setAdmin(Admin admin) {
+        State.authenticated = true;
         State.admin = admin;
         State.user = admin;
         State.is_admin = true;

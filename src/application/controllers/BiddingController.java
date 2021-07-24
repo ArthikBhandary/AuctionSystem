@@ -29,7 +29,7 @@ public class BiddingController implements Initializable
 		System.out.println("Bidding go to home");
 		try
 		{
-			pane = (AnchorPane) FXMLLoader.load(getClass().getResource("Main.fxml"));//loads the mainfxml 
+			pane = (AnchorPane) FXMLLoader.load(getClass().getResource("../view/Main.fxml"));//loads the mainfxml
 			Scene scene = new Scene(pane);
 			Stage curStage = (Stage)((Node)event.getSource()).getScene().getWindow();
 			curStage.setScene(scene);
