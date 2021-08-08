@@ -11,6 +11,9 @@ import java.sql.SQLException;
 import static application.exceptions.ExceptionDisplay.printSQLException;
 import static application.models.User.userBuilder;
 
+/**
+ * Class with static methods to authenticate/login and validate user and update current state
+ */
 public class Authentication {
 
     //    private static final String VAILIDATE_QUERY = "SELECT * FROM accounts WHERE id = ? and password = ?";

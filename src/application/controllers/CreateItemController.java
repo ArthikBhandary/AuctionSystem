@@ -28,6 +28,9 @@ import static application.messages.MessageDisplay.showAlert;
  */
 public class CreateItemController extends NextPageController {
 
+    /**
+     * image uploaded to be used for the item
+     */
     private File file;
 
     @FXML
@@ -40,8 +43,8 @@ public class CreateItemController extends NextPageController {
     private ImageView imageView;
 
     /**
-     * @param event that triggers the function
      * Used to open the fileChooser window and save and display the file chosen.
+     * @param event that triggers the function
      */
     @FXML
     public void imageUpload(ActionEvent event) {
@@ -67,7 +70,7 @@ public class CreateItemController extends NextPageController {
 
     /**
      * To return to AdminLogin Page
-     * @param event
+     * @param event event that results in the triggering of the function call
      */
     @FXML
     public void back(ActionEvent event) {
@@ -84,7 +87,7 @@ public class CreateItemController extends NextPageController {
      * Function to be called on submission
      * Displays alert if any of the fields are empty
      * Else creates a new item, saves it to the db and redirect to home page
-     * @param event
+     * @param event event that results in the triggering of the function call
      */
     @FXML
     public void submit(ActionEvent event) {
@@ -132,9 +135,9 @@ public class CreateItemController extends NextPageController {
 
     /**
      * Create an item and insert it to the db
-     * @param name
-     * @param description
-     * @param pathname
+     * @param name name of the item to be inserted
+     * @param description description of the item to be inserted
+     * @param pathname path where the image
      */
     private void insertToDB(String name, String description, String pathname) {
         Item.createItem(name, description, pathname);

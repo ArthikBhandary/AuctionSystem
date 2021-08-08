@@ -34,6 +34,10 @@ public class NextPageController {
         curStage.show();
     }
 
+    /**
+     * Redirects to the home page
+     * @param event event which triggered the function call
+     */
     @FXML
     public void home(ActionEvent event) {
         try {

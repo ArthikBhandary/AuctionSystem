@@ -9,7 +9,6 @@
 
 <AnchorPane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="application.controllers.AdminLoginController">
    <children>
-      <Label fx:id="msg" alignment="CENTER" layoutX="176.0" layoutY="243.0" prefHeight="16.0" prefWidth="67.0" textFill="#f86a6a" />
       <Button alignment="CENTER" layoutX="124.0" layoutY="236.0" mnemonicParsing="false" onAction="#login" opacity="0.73" prefHeight="31.0" prefWidth="160.0" text="Confirm Password" textAlignment="CENTER" AnchorPane.leftAnchor="125.0" AnchorPane.rightAnchor="125.0">
          <font>
             <Font name="System Bold" size="15.0" />
@@ -26,5 +25,10 @@
             <Font name="System Bold" size="12.0" />
          </font>
       </Button>
+      <Label fx:id="msg" alignment="CENTER" layoutX="93.0" layoutY="297.0" prefHeight="35.0" prefWidth="208.0" text="" textAlignment="CENTER" textFill="#fa0707">
+         <font>
+            <Font name="System Bold Italic" size="24.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

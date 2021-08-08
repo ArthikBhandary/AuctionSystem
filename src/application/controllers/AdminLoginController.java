@@ -27,24 +27,22 @@ public class AdminLoginController extends NextPageController {
     /**
      * Used to check if the entered password is correct for the current user and check if the user
      * has admin privileges. Redirect to AdminHome on correct password
+     *
      * @param event event that triggers this function
      * @throws IOException
      */
-	@FXML
-	public void login(ActionEvent event) throws IOException
-	{
-		String password = passwordField.getText();
-		System.out.println(password);
-		try {
-			if(Authentication.validate(password))
-				{
-					msg.setText("valid");
-					State.setAdmin(new Admin(State.getUser()));
-					nextPage(event, "../view/AdminHome.fxml");
+    @FXML
+    public void login(ActionEvent event) throws IOException {
+        String password = passwordField.getText();
+        try {
+            if (Authentication.validate(password)) {
+                // If user has admin privileges and password checks out, then go to next page
+                State.setAdmin(new Admin(State.getUser()));
+                nextPage(event, "../view/AdminHome.fxml");
 
             } else {
-                System.out.println("Incorrect");
-                msg.setText("Invalid!");
+                // display error message if not validated
+                msg.setText("Invalid password!");
             }
         } catch (UserNotFoundException throwables) {
             throwables.printStackTrace();

@@ -40,9 +40,9 @@ public class CustomerBuyController extends DynamicItemScrollController {
 
 
     /**
+     * Condition to check which items to be added to the scroll pane
      * @param item the item to be checked
-     * @return true if the item should be included in the list
-     * i.e, the bidding on the item has stopped and the user had highest bid
+     * @return true if the item should be included in the list, i.e, the bidding on the item has stopped and the user had highest bid
      */
     @Override
     protected boolean checkItem(Item item) {
@@ -55,6 +55,10 @@ public class CustomerBuyController extends DynamicItemScrollController {
         }
     }
 
+    /**
+     * Go to the previous page, that is, the home page
+     * @param event event which triggered the function call
+     */
     @FXML
     public void back(ActionEvent event) {
         try {
@@ -116,9 +120,9 @@ public class CustomerBuyController extends DynamicItemScrollController {
 
             EventHandler<ActionEvent> event = e -> {
                 String number = payField.getText();
-                // Check if the number enter is not empty and has 10 digits (987654321) or number with country code (+91987654310)
-                if (number.isEmpty() || number.matches("(\\+\\d{2})?\\d{10}")) {
-                    infoBox("Enter your gpay number", "Gpay number is invalid", null);
+                // Check if the number enter is empty or does not have 10 digits (987654321) or number with country code (+91987654310)
+                if (number.isEmpty() || !number.matches("(\\+\\d{2})?\\d{10}")) {
+                    infoBox("Enter proper gpay number", "Gpay number is invalid", null);
                     return;
                 }
 

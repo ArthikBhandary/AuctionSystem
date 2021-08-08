@@ -15,8 +15,11 @@ import java.sql.SQLException;
 import static application.messages.MessageDisplay.infoBox;
 import static application.messages.MessageDisplay.showAlert;
 
+/**
+ * Controller of Login.fxml
+ * Used to display login page and implement logins
+ */
 public class LoginController extends NextPageController {
-
 
     @FXML
     private TextField usernameField;
@@ -27,27 +30,33 @@ public class LoginController extends NextPageController {
     @FXML
     private Button submitButton;
 
+    /**
+     * Used to login/authorise the user, by using the username from usernameField and password from passwordField
+     * @param event event that results in the triggering of the function call
+     */
     @FXML
     public void login(ActionEvent event) {
 
         Window window = submitButton.getScene().getWindow();
-
+        // Check if the usernameField is empty, if yes return and show alert
         if (usernameField.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, window, "Form Error!",
                     "Please enter your email id");
             return;
         }
+        // Check if the passwordField is empty, if yes return and show alert
         if (passwordField.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, window, "Form Error!",
                     "Please enter a password");
             return;
         }
-
+        // Extract emailId and password
         String emailId = usernameField.getText();
         String password = passwordField.getText();
-
+        // Authenticate the username and password
         boolean flag = Authentication.authenticate(emailId, password);
-
+        // If authentication failed, i.e, returned false show alert
+        // Otherwise redirect to next page
         if (!flag) {
             infoBox("Please enter correct Email and Password", null, "Failed");
         } else {

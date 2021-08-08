@@ -76,17 +76,7 @@ public class Item {
 
 
     /**
-     * @param id id of the item
-     * @param name name of the item
-     * @param description description of the item
-     * @param imagePath path at which image of the item is stored
-     * @return Item object containing the sent values
-     */
-    public static Item builder(int id, String name, String description, String imagePath) {
-        return new Item(id, name, description, imagePath);
-    }
-
-    /**
+     * Builder function for items from sql statement results
      * @param resultSet the result obtained from sql statements
      * @return Item object
      * @throws SQLException
@@ -101,6 +91,7 @@ public class Item {
         item.is_sold = resultSet.getInt("is_sold") == 1;
         item.is_paid = resultSet.getInt("is_paid") == 1;
         item.user_id = resultSet.getInt("user_id");
+        item.bid = resultSet.getInt("bid");
         return item;
     }
 
@@ -137,6 +128,7 @@ public class Item {
     }
 
     /**
+     * Get list of all items in the database
      * @return ArrayList of all items present
      */
     public static ArrayList<Item> getObjectList() {
@@ -159,19 +151,30 @@ public class Item {
     }
 
 
-
-    void finishBid() {
-        is_sold = true;
+    /**
+     * To be used to admins to finish a bid
+     * @return true if bidding was successfully stopped
+     */
+    boolean finishBid() {
         try {
             PreparedStatement stmt = getConnection().prepareStatement(FINISH_QUERY);
             stmt.setInt(1, id);
             int r = stmt.executeUpdate();
+            if(r != 0) {
+                is_sold = true;
+                return true;
+            }
         } catch (SQLException e) {
             System.out.println(e);
         }
-
+        return false;
     }
 
+    /**
+     * Function to buy an item, which has been allotted to the user
+     * @param number the id of the item
+     * @throws UserNotFoundException
+     */
     public void buyItem(String number) throws UserNotFoundException {
         try {
             if(State.getUser().getId() != user_id){
@@ -191,6 +194,12 @@ public class Item {
     }
 
 
+    /**
+     * To create an item and add it into the database
+     * @param name name of the item
+     * @param description description of the item
+     * @param pathname path where the image of the item is stored
+     */
     public static void createItem(String name, String description, String pathname){
 
         Connection conn = null;
