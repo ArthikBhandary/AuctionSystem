@@ -9,8 +9,10 @@ import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 
+/**
+ * Abstract class to define a controller to scene which has a scroll pane which displays a list of objects
+ */
 public abstract class DynamicItemScrollController extends NextPageController {
-
     public void initialize(){
         Platform.runLater(this::scrollPaneUpdate);
     }

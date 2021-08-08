@@ -6,7 +6,7 @@
 
 <AnchorPane fx:id="rootpane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="application.controllers.HomeController">
    <children>
-    <Button layoutX="155.0" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#adminlogin" opacity="0.89" prefHeight="50.0" prefWidth="200.0" text="Admin-login" AnchorPane.bottomAnchor="380.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="70.0" />
+    <Button layoutX="155.0" layoutY="93.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#adminLogin" opacity="0.89" prefHeight="50.0" prefWidth="200.0" text="Admin-login" AnchorPane.bottomAnchor="380.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="70.0" />
       <Button layoutX="130.0" layoutY="153.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#bid" opacity="0.89" prefHeight="50.0" prefWidth="200.0" text="Bid" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0" />
       <Button layoutX="110.0" layoutY="239.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#buy" opacity="0.88" prefHeight="50.0" prefWidth="200.0" text="Buy!" AnchorPane.bottomAnchor="211.0" AnchorPane.leftAnchor="110.0" AnchorPane.rightAnchor="110.0" AnchorPane.topAnchor="239.0" />
    </children>

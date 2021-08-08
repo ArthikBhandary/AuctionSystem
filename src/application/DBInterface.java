@@ -7,6 +7,10 @@ import java.sql.SQLException;
 import static application.CONSTANTS.DB_CONSTANTS.*;
 import static application.exceptions.ExceptionDisplay.printSQLException;
 
+
+/**
+ * Class used to get and create and get connection to the database
+ */
 public class DBInterface {
 
     private static DBInterface instance;
@@ -17,8 +21,8 @@ public class DBInterface {
         try
         {
             Class.forName(CLASSNAME);
+            // create a connection to the database
             connection= DriverManager.getConnection(DATABASE_URL ,DATABASE_USERNAME, DATABASE_PASSWORD);
-            System.out.println("Connected Database");
         }catch(SQLException e)
         {
             printSQLException(e);
@@ -28,7 +32,7 @@ public class DBInterface {
     }
 
     public static DBInterface getInstance() {
-        //Singleton Class
+        // Get instance if it is already created, or create one if it doesn't exits
         if (instance == null) {
             instance = new DBInterface();
         }
@@ -36,6 +40,10 @@ public class DBInterface {
     }
 
 
+    /**
+     * @return connection to the database, to execute statements
+     * @throws SQLException
+     */
     public static Connection getConnection() throws SQLException
     {
         return getInstance().connection;

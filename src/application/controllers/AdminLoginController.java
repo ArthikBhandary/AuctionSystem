@@ -1,52 +1,55 @@
 package application.controllers;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
 import application.Authentication;
 import application.State.State;
 import application.exceptions.UserNotFoundException;
 import application.models.Admin;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Parent;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 
+import java.io.IOException;
+
+/**
+ * AdminLogin.fxml uses this controller
+ * It is used to display and produces the functionalities of the admin login page
+ * It accepts a password(user password) to verify if the user is a admin, and allows access on correct passowrd
+ */
 public class AdminLoginController extends NextPageController {
-	
-	@FXML
-	private Label msg;
-	@FXML
-	private PasswordField passwordField;
+
+    @FXML
+    private Label msg;
+    @FXML
+    private PasswordField passwordField;
 
 
+    /**
+     * Used to check if the entered password is correct for the current user and check if the user
+     * has admin privileges. Redirect to AdminHome on correct password
+     * @param event event that triggers this function
+     * @throws IOException
+     */
 	@FXML
 	public void login(ActionEvent event) throws IOException
 	{
-		Parent pane;
 		String password = passwordField.getText();
 		System.out.println(password);
 		try {
 			if(Authentication.validate(password))
 				{
-					System.out.println("Correct");
 					msg.setText("valid");
 					State.setAdmin(new Admin(State.getUser()));
-				//FROM HERE WE NAVIGATE TO INITIAL BID PAGE
 					nextPage(event, "../view/AdminHome.fxml");
 
-				}
-
-				else
-				{
-					System.out.println("Incorrect");
-					msg.setText("Invalid!");
-				}
-		} catch (SQLException | UserNotFoundException throwables) {
-			throwables.printStackTrace();
-		}
-	}
+            } else {
+                System.out.println("Incorrect");
+                msg.setText("Invalid!");
+            }
+        } catch (UserNotFoundException throwables) {
+            throwables.printStackTrace();
+        }
+    }
 
 
 }

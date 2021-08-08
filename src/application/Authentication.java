@@ -1,4 +1,5 @@
 package application;
+
 import application.State.State;
 import application.exceptions.UserNotFoundException;
 
@@ -11,30 +12,40 @@ import static application.exceptions.ExceptionDisplay.printSQLException;
 import static application.models.User.userBuilder;
 
 public class Authentication {
-    // Replace below database url, username and password with your actual database credentials
 
-//    private static final String VAILIDATE_QUERY = "SELECT * FROM accounts WHERE id = ? and password = ?";
+    //    private static final String VAILIDATE_QUERY = "SELECT * FROM accounts WHERE id = ? and password = ?";
     private static final String LOGIN_QUERY = "SELECT * FROM accounts WHERE username = ? and password = ?";
 
-    public static boolean authenticate(String username, String password) throws SQLException {
 
-        // Step 1: Establishing a Connection and
-        // try-with-resource statement will auto close the connection.
+    /**
+     * Used to authenticate and log in a user, using username and password
+     * State is updated if the user exists and password is correct
+     * @param username username of the user
+     * @param password password of the user
+     * @return true if the username and password match to an existing user account
+     */
+    public static boolean authenticate(String username, String password) {
+
         try {
+            // Get connection to the database using DBInterface
             Connection connection = DBInterface.getConnection();
+            // Prepare a SQL statement to be executed with the username and password
             PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_QUERY);
             preparedStatement.setString(1, username);
             preparedStatement.setString(2, password);
-
-            System.out.println(preparedStatement);
-
+            // Execute the query
             ResultSet resultSet = preparedStatement.executeQuery();
+            // If there were any results for the username and password, i.e, a user exists
             if (resultSet.next()) {
+                // extract id, username, password and isAdmin (admin status) from the returned row
                 int temp_id = resultSet.getInt(1);
-                String temp_username = resultSet.getString("username");
-                String temp_password = resultSet.getString("password");
-                Boolean temp_isadmin = resultSet.getBoolean("is_admin");
-                State.setUser(userBuilder(temp_id, temp_username, temp_password, temp_isadmin)); // Update state and store logged in user
+                String resultUsername = resultSet.getString("username");
+                String resultPassword = resultSet.getString("password");
+                Boolean isAdmin = resultSet.getBoolean("is_admin");
+
+                // User has been successfully authenticated, so he must be logged in
+                // Create a User object to store the details and update the State
+                State.setUser(userBuilder(temp_id, resultUsername, resultPassword, isAdmin)); // Update state and store logged in user
                 return true;
             }
 
@@ -46,18 +57,24 @@ public class Authentication {
         return false;
     }
 
-    public static boolean validate(String password) throws SQLException {
+    /**
+     * To check if the current user is admin, and if yes, allow admin operations
+     * Should only be used if user is already logged in with authenticate method
+     * @param password password of the user
+     * @return true, if the password is right and the user is an admin
+     */
+    public static boolean validate(String password){
 
-        // Step 1: Establishing a Connection and
-        // try-with-resource statement will auto close the connection.
         try {
+            // Get connection from the user
             Connection connection = DBInterface.getConnection();
+            // Prepare SQL statement to be used with username from the State and given password
             PreparedStatement preparedStatement = connection.prepareStatement(LOGIN_QUERY);
             preparedStatement.setString(1, State.getUser().username);
             preparedStatement.setString(2, password);
-
-            System.out.println(preparedStatement);
+            // Execute the statement
             ResultSet resultSet = preparedStatement.executeQuery();
+            // If any result was found, and the user found is an admin, the return true
             if (resultSet.next() && resultSet.getBoolean("is_admin")) {
                 return true;
             }
@@ -65,11 +82,11 @@ public class Authentication {
         } catch (SQLException e) {
             // print SQL exception information
             printSQLException(e);
-        } catch(UserNotFoundException e){
+        } catch (UserNotFoundException e) {
             System.out.println(e);
         }
         return false;
-}
+    }
 
 
 }

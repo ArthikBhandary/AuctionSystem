@@ -9,7 +9,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="400.0" xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="application.controllers.CustomerBuyController">
    <children>
-      <Text layoutX="9.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Create Your Bid" textAlignment="CENTER" wrappingWidth="381.60003662109375">
+      <Text layoutX="9.0" layoutY="41.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Buy Won Items" textAlignment="CENTER" wrappingWidth="381.60003662109375">
          <font>
             <Font name="Playbill" size="41.0" />
          </font>

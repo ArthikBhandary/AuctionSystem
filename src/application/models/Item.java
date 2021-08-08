@@ -12,6 +12,9 @@ import java.util.ArrayList;
 
 import static application.DBInterface.getConnection;
 
+/**
+ * Item class to store item information
+ */
 public class Item {
     protected final int id;
     protected int user_id, bid;
@@ -57,6 +60,12 @@ public class Item {
         return is_paid;
     }
 
+    /**
+     * @param id id of the item
+     * @param name name of the item
+     * @param description description of the item
+     * @param imagePath path at which image of the item is stored
+     */
     Item(int id, String name, String description, String imagePath) {
         this.id = id;
         this.user_id = -1;
@@ -66,18 +75,22 @@ public class Item {
     }
 
 
+    /**
+     * @param id id of the item
+     * @param name name of the item
+     * @param description description of the item
+     * @param imagePath path at which image of the item is stored
+     * @return Item object containing the sent values
+     */
     public static Item builder(int id, String name, String description, String imagePath) {
         return new Item(id, name, description, imagePath);
     }
 
-    private static Item builder(int id, String name, String description, String imagePath, int user_id, boolean is_sold, boolean is_paid) {
-        Item item = new Item(id, name, description, imagePath);
-        item.is_sold = is_sold;
-        item.is_paid = is_paid;
-        item.user_id = user_id;
-        return item;
-    }
-
+    /**
+     * @param resultSet the result obtained from sql statements
+     * @return Item object
+     * @throws SQLException
+     */
     private static Item builder(ResultSet resultSet) throws SQLException {
         int id = resultSet.getInt("id");
         String name = resultSet.getString("name");
@@ -91,22 +104,29 @@ public class Item {
         return item;
     }
 
+    /**
+     * Used to bid a amount on an item
+     * @param amount the amount that is bid upon the item
+     * @return true if bid was successful, false if unsuccessful usually if amount is less than the highest bid unti now
+     * @throws UserNotFoundException
+     */
     public Boolean setBid(int amount) throws UserNotFoundException {
         if (amount > bid) {
+            // If amount is greater than the previous bid
             try {
                 user_id = State.getUser().getId();
+                // Get db connection, prepare statement and add variables
                 PreparedStatement stmt = getConnection().prepareStatement(BID_UPDATE_QUERY);
                 stmt.setInt(1, amount);
                 stmt.setInt(2, user_id);
                 stmt.setInt(3, id);
                 stmt.setInt(4, amount);
-                System.out.println(stmt.toString());
                 int r = stmt.executeUpdate();
                 if (r == 0) {
-                    // No row updated
+                    // No row updated, usually if amount was less than highest bid yet
                     return false;
                 }
-                bid = amount;
+                bid = amount; // If successful
                 this.user_id = user_id;
                 return true;
             } catch (SQLException e) {
@@ -116,13 +136,18 @@ public class Item {
         return false;
     }
 
+    /**
+     * @return ArrayList of all items present
+     */
     public static ArrayList<Item> getObjectList() {
         ArrayList<Item> itemArrayList = new ArrayList<>();
         Item temp;
         PreparedStatement stmt = null;
         try {
+            // Get connection and execute sql statement to get all items
             stmt = getConnection().prepareStatement(SELECT_ITEMS_QUERY);
             ResultSet resultSet = stmt.executeQuery();
+            // For every returned row, build an item from the details and add it itemArrayList
             while (resultSet.next()) {
                 temp = builder(resultSet);
                 itemArrayList.add(temp);

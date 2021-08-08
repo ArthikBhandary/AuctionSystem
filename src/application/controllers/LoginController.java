@@ -1,8 +1,6 @@
 package application.controllers;
 
-import java.io.IOException;
-import java.sql.SQLException;
-
+import application.Authentication;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -11,7 +9,8 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.stage.Window;
 
-import application.Authentication;
+import java.io.IOException;
+import java.sql.SQLException;
 
 import static application.messages.MessageDisplay.infoBox;
 import static application.messages.MessageDisplay.showAlert;
@@ -29,12 +28,9 @@ public class LoginController extends NextPageController {
     private Button submitButton;
 
     @FXML
-    public void login(ActionEvent event) throws SQLException {
+    public void login(ActionEvent event) {
 
         Window window = submitButton.getScene().getWindow();
-
-        System.out.println(usernameField.getText());
-        System.out.println(passwordField.getText());
 
         if (usernameField.getText().isEmpty()) {
             showAlert(Alert.AlertType.ERROR, window, "Form Error!",
@@ -58,12 +54,12 @@ public class LoginController extends NextPageController {
 
             infoBox("Login Successful!", null, "Success");
             try {
-                nextPage(event,"../view/Home.fxml" );
-            } catch (IOException e){
+                nextPage(event, "../view/Home.fxml");
+            } catch (IOException e) {
                 System.out.println(e);
                 showAlert(Alert.AlertType.ERROR, window, "Something went wrong",
                         "Couldn't load next Page!");
-            } catch(Exception e){
+            } catch (Exception e) {
                 System.out.println(e);
             }
         }

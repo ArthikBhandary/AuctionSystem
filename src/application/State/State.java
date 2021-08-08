@@ -5,10 +5,14 @@ import application.models.Admin;
 import application.models.User;
 
 
+/**
+ * To store the current state of the application
+ * Such as the current user object/info if the user is logged in, admin status etc.
+ */
 public class State {
     static private User user;
     static private Admin admin;
-    static private boolean authenticated;
+    static private boolean authenticated = false;
     static private boolean is_admin;
 
     public static User getUser() throws UserNotFoundException {
@@ -20,10 +24,6 @@ public class State {
 
     public static Admin getAdmin() throws UserNotFoundException {
         if(!authenticated|| !is_admin || user == null){
-            System.out.println(authenticated);
-            System.out.println(is_admin);
-            System.out.println(user == null);
-            System.out.println(admin == null);
             throw new UserNotFoundException();
         }
         return admin;
@@ -34,7 +34,10 @@ public class State {
         State.user = user;
     }
 
-    public static Boolean is_authenticated(){
+    /**
+     * @return true if the user of the current session has been logged in/has been authenticated
+     */
+    public static Boolean isAuthenticated(){
         return authenticated;
     }
 

@@ -24,7 +24,11 @@ import static application.CONSTANTS.PATH.PROJECT_DIR;
 import static application.CONSTANTS.PATH.RESOURCE_DIR;
 import static application.messages.MessageDisplay.infoBox;
 
-public class CustomerBuyController extends DynamicItemScrollController{
+/**
+ * CustomerBuy.fxml uses this controller
+ * It is used to buy an item, on which the highest bid was done by the user
+ */
+public class CustomerBuyController extends DynamicItemScrollController {
 
     @FXML
     protected ScrollPane scrollPane;
@@ -35,11 +39,16 @@ public class CustomerBuyController extends DynamicItemScrollController{
     }
 
 
+    /**
+     * @param item the item to be checked
+     * @return true if the item should be included in the list
+     * i.e, the bidding on the item has stopped and the user had highest bid
+     */
     @Override
-    protected boolean checkItem(Item item){
+    protected boolean checkItem(Item item) {
         try {
             System.out.println(item.isSold() && item.getUserId() == State.getUser().getId());
-            return item.isSold() && item.getUserId() == State.getUser().getId() ;
+            return item.isSold() && item.getUserId() == State.getUser().getId();
         } catch (UserNotFoundException e) {
             e.printStackTrace();
             return false;
@@ -54,12 +63,19 @@ public class CustomerBuyController extends DynamicItemScrollController{
             e.printStackTrace();
         }
     }
+
+    /**
+     * Returns a node to display the item, with fields to pay the amount if not already paid
+     *
+     * @param item the item which is to be displayed
+     * @return Vbox displaying the node
+     */
     @Override
-    public VBox getItemNode(Item item){
+    public VBox getItemNode(Item item) {
         File file = new File(PROJECT_DIR + RESOURCE_DIR + item.getImagePath());
         Image image = new Image(file.getPath());
 
-        ImageView imageView= new ImageView(image);
+        ImageView imageView = new ImageView(image);
         imageView.maxWidth(390);
         imageView.setFitWidth(390);
         imageView.setPreserveRatio(true);
@@ -79,7 +95,7 @@ public class CustomerBuyController extends DynamicItemScrollController{
         descriptionBox.maxWidth(390);
         descriptionBox.setAlignment(Pos.CENTER);
 
-        Text prevBidText =  new Text("Price : " + item.getBid());
+        Text prevBidText = new Text("Price : " + item.getBid());
         prevBidText.setStyle("-fx-font: 20 arial;");
         HBox prevBidBox = new HBox(prevBidText);
         prevBidBox.setMaxWidth(390);
@@ -88,8 +104,8 @@ public class CustomerBuyController extends DynamicItemScrollController{
 
         VBox node;
 
-        if (! item.isPaid()) {
-
+        if (!item.isPaid()) {
+            // To buy an item
             Text payText = new Text("Gpay number ");
             payText.setStyle("-fx-font: 20 arial;");
             TextField payField = new TextField();
@@ -100,13 +116,14 @@ public class CustomerBuyController extends DynamicItemScrollController{
 
             EventHandler<ActionEvent> event = e -> {
                 String number = payField.getText();
-
-                if(number.isEmpty() || number.matches("\\d{10}")){
+                // Check if the number enter is not empty and has 10 digits (987654321) or number with country code (+91987654310)
+                if (number.isEmpty() || number.matches("(\\+\\d{2})?\\d{10}")) {
                     infoBox("Enter your gpay number", "Gpay number is invalid", null);
                     return;
                 }
 
                 try {
+                    // Buy the item and remove the bid button and payment area for this item
                     item.buyItem(number);
                     node.getChildren().remove(bidButton);
                     node.getChildren().remove(newBidBox);
@@ -114,12 +131,12 @@ public class CustomerBuyController extends DynamicItemScrollController{
 
                 } catch (UserNotFoundException userNotFoundException) {
                     userNotFoundException.printStackTrace();
-                    infoBox("If you think this is a mistake contact us at our mail","The item isn't sold to your account", "Illegal Buy");
                 }
             };
             bidButton.setOnAction(event);
 
         } else {
+            // If item is already bought
             Text userInfoText = new Text("Bought ");
             userInfoText.setStyle("-fx-font: 20 arial;");
             HBox userInfoBox = new HBox(userInfoText);

@@ -21,7 +21,12 @@ import java.io.File;
 import static application.CONSTANTS.PATH.PROJECT_DIR;
 import static application.CONSTANTS.PATH.RESOURCE_DIR;
 import static application.State.State.getAdmin;
+import static application.messages.MessageDisplay.infoBox;
 
+/**
+ * ItemReview.fxml uses this controller
+ * This is an admin page, where can admin stop the bidding of any ongoing item
+ */
 public class ItemReviewController extends DynamicItemScrollController {
 
     @FXML
@@ -32,20 +37,30 @@ public class ItemReviewController extends DynamicItemScrollController {
         return scrollPane;
     }
 
-
+    /**
+     * @param item the item to be checked
+     * @return true if the item should be included in the list
+     * i.e, the bidding on the item is still going on
+     */
     @Override
-    protected boolean checkItem(Item item){
+    protected boolean checkItem(Item item) {
         return !item.isSold();
     }
 
-    protected VBox getItemNode(Item item){
+    /**
+     * Returns a node to display the item, with fields to pay the amount if not already paid
+     *
+     * @param item the item which is to be displayed
+     * @return Vbox displaying the node
+     */
+    protected VBox getItemNode(Item item) {
         System.out.println("resources/" + item.getImagePath());
         Image image;
         ImageView imageView;
         File file = new File(PROJECT_DIR + RESOURCE_DIR + item.getImagePath());
         image = new Image(file.getPath());
 
-        imageView= new ImageView(image);
+        imageView = new ImageView(image);
         imageView.setFitWidth(400);
         imageView.setPreserveRatio(true);
         Text nameText = new Text(item.getName());
@@ -57,17 +72,19 @@ public class ItemReviewController extends DynamicItemScrollController {
         HBox descriptionBox = new HBox(descriptionText);
         descriptionBox.setAlignment(Pos.CENTER);
         Button finishBidButton = new Button("Finish Auction");
-        VBox node = new VBox(nameBox, imageView,  descriptionBox, finishBidButton);
+        VBox node = new VBox(nameBox, imageView, descriptionBox, finishBidButton);
         node.setSpacing(20);
         node.setMaxWidth(390);
         EventHandler<ActionEvent> event = e -> {
             try {
+                // Finish the biding of the item
                 getAdmin().finishBid(item);
                 node.getChildren().remove(finishBidButton);
                 node.getChildren().add(new Text("Auction Finished"));
 
-             } catch (UserNotFoundException userNotFoundException) {
+            } catch (UserNotFoundException userNotFoundException) {
                 userNotFoundException.printStackTrace();
+                infoBox("If you think this is a mistake contact us at our mail", "Bidding wasn't stopped", "Something went wrong");
             }
         };
         finishBidButton.setOnAction(event);
