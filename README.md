@@ -21,12 +21,15 @@ The classname is not required now, removing it shouldn't cause any problems.
 
 ###### The tables used, and their column attribute are as follows:
 _Table "accounts"_
+
 ![Accounts table](readme_images/table_accounts.png)
 
 _Table "items"_
+
 ![Accounts table](readme_images/table_items.png)
 
 _Table "transaction"_
+
 ![Accounts table](readme_images/table_transaction.png)
 
 **Note:** All the "id" columns (there's one in each table) must be set to auto increment
